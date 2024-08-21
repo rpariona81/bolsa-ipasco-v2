@@ -1,0 +1,121 @@
+<!--https://www.codeply.com/p/t6GGNuV2yb-->
+<div class="container-fluid network_wrapper col-sm p-0 ">
+    <div class="card border-secondary">
+        <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" data-tabs="tabs" id="convocatorias-list">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="true" data-toggle="tab" href="#vigentes">Convocatorias vigentes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#novigentes">Convocatorias no vigentes</a>
+                </li>
+            </ul>
+        </div>
+        <div class="card-body tab-content">
+            <div class="tab-pane active" id="vigentes">
+                <div class="row">
+                    <?php //print_r($recuento);
+                    ?>
+                    <?php if ($recuento['contVigentes'] == 0) {
+                        echo "<h5 class='card-title text-center'>No hay convocatorias vigentes.</h5>";
+                    } else {
+                        if ($recuento['contVigentes'] > 0) {
+                            foreach ($queryVigentes as $vigente) :
+                                if ($vigente->vigency == 1) {
+                    ?>
+                                    <div class="col-md-6 col-lg-6">
+                                        <div class="feature-block border border-1 p-3">
+                                            <img src="<?= base_url('public/app/img/svg/paint-palette.svg') ?>" alt="img" class="img-fluid">
+                                            <h4>creative design</h4>
+                                            <h5><?= substr(html_entity_decode($vigente->title), 0, 20) . '...' ?></h5>
+                                            <h6>
+                                                <font color="black"><em><?= substr(html_entity_decode($vigente->employer), 0, 33) . '...'  ?></em></font>
+                                            </h6>
+                                            <ul style="list-style: none; padding: 0; margin: 0;">
+                                                <li>
+                                                    <i class="fa fa-calendar" style="height: 20px; width: 20px; text-align: center;"></i>
+                                                    <span>&nbsp;Finaliza el <?= date("d/m/Y", strtotime($vigente->date_vigency)); ?></span>
+                                                </li>
+                                                <li>
+                                                    <i class="fa fa-map-marker" style="height: 20px; width: 20px; text-align: center;"></i>
+                                                    <span>&nbsp;<?= $vigente->ubicacion ?></span>
+                                                </li>
+                                            </ul>
+                                            <!--<br>-->
+                                            <p class="card-text">Detalle:&nbsp;<?= substr(html_entity_decode($vigente->detail), 0, 20) ?>...</p>
+                                            <p>
+                                                <small class="text-muted">Sueldo:&nbsp;S/&nbsp;<?= $vigente->salary ?></small>
+                                                <br><?= $vigente->expired ?><br>
+                                                <small><?= $vigente->career_title ?></small>
+                                            </p>
+                                            <!--<div class="float-end">-->
+                                            <div class="text-center">
+                                                <a class="bg-danger btn input-block-level form-control btn-outline-danger" href="/users/convocatoria/<?= $vigente->id; ?>"><strong>Ver convocatoria</strong></a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                    <?php
+                                }
+                            endforeach;
+                        }
+                    } ?>
+                </div>
+            </div>
+            <div class="tab-pane" id="novigentes">
+                <div class="row">
+                    <?php foreach ($queryNoVigentes as $novigente) :
+                        if ($novigente->vigency == 0) {
+                    ?>
+                            <div class="col-md-6 col-lg-6">
+                                <div class="feature-block border border-1 p-3">
+                                    <img src="<?= base_url('public/app/img/svg/paint-palette.svg') ?>" alt="img" class="img-fluid">
+                                    <h4>creative design</h4>
+                                    <h5><?= substr(html_entity_decode($novigente->title), 0, 20) . '...' ?></h5>
+                                    <h6>
+                                        <font color="black"><em><?= substr(html_entity_decode($novigente->employer), 0, 33) . '...'  ?></em></font>
+                                    </h6>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li>
+                                            <i class="fa fa-calendar" style="height: 20px; width: 20px; text-align: center;"></i>
+                                            <span>&nbsp;Finaliza el <?= date("d/m/Y", strtotime($novigente->date_vigency)); ?></span>
+                                        </li>
+                                        <li>
+                                            <i class="fa fa-map-marker" style="height: 20px; width: 20px; text-align: center;"></i>
+                                            <span>&nbsp;<?= $novigente->ubicacion ?></span>
+                                        </li>
+                                    </ul>
+                                    <!--<br>-->
+                                    <p class="card-text">Detalle:&nbsp;<?= substr(html_entity_decode($novigente->detail), 0, 20) ?>...</p>
+                                    <p>
+                                        <small class="text-muted">Sueldo:&nbsp;S/&nbsp;<?= $novigente->salary ?></small>
+                                        <br><?= $novigente->expired ?><br>
+                                        <small><?= $novigente->career_title ?></small>
+                                    </p>
+                                    <!--<div class="float-end">-->
+                                    <div class="text-center">
+                                        <a class="bg-danger btn input-block-level form-control btn-outline-danger" href="/users/convocatoria/<?= $novigente->id; ?>"><strong>Ver convocatoria</strong></a>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+        <?php }
+                    endforeach; ?>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--<script>
+    $(function() {
+            $("#convocatorias-list").tabs();
+            $("#convocatorias-list").tabs("load", '#vigentes');
+        });
+    /*$(window).load(function() {
+        $('.nav-tabs a[href="#vigentes"]').tab('show');
+    });*/
+    /*$('#convocatorias-list a').on('click', function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });*/
+</script>-->
